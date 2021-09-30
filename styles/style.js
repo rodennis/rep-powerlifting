@@ -50,5 +50,6 @@ signUpSubmit.addEventListener('click', function register() {
         document.getElementById("female").value='';
         document.getElementById('signUpForm').className="hide";
 
+        alert("Sign up successful!")
     }
 })
