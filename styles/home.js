@@ -7,7 +7,5 @@ newUserPost.addEventListener('click', function () {
     const newPost = document.createElement('div');
     newPost.classList.add('newPost');
     container.appendChild(newPost);
-
-
 }
 )

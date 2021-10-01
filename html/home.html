@@ -9,9 +9,17 @@
     <title>Document</title>
 </head>
 <body>
+    <nav class="nav-bar"> 
+        <button id="newUserPost">New Post</button> 
+    </nav>
     <div id="container">
-        <div class="nav-bar">
-            <button id="newUserPost">New Post</button>
+        <div class="newPost">
+            <form enctype="multipart/form-data" action="" method="POST">
+                <iframe width="546" height="330" src="" frameborder="1" allowfullscreen></iframe>
+                <input type="hidden" name="MAX_FILE_SIZE" value="1000000"/>
+                Choose a file to upload: <input name="uploadedfile" type="file"/><br/>
+                <input type="submit" value="Upload File"/>
+                </form>
         </div>
     </div>
 </body>
