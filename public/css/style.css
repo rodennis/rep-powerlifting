@@ -1,0 +1,202 @@
+body {
+    min-height: 100vh;
+    background-image: url("/photos/Deadlift-2.jpg");
+    background-position: center;
+    background-size: cover;
+    
+    
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.logo {
+    flex: 3 0 auto;
+    border: 5px black solid;
+    margin-top: 150px;
+    margin-bottom: -20px
+    ;
+}
+
+.loginScreen {
+    flex: 3 0 auto;
+    border-radius: 10px;
+    margin-top: 10px;
+    padding: 80px 40px 80px 40px;
+}
+
+.user {
+    margin: 5px;
+    filter: opacity(0.7) ;
+}
+
+.user input {
+    width: 200px;
+    border-radius: 3px;
+    background-color: transparent;
+    border-style: none;
+    border-bottom: #FA8072 solid;
+}
+
+.user ::placeholder {
+    color: white;
+    font-family: 'fira sans condensed';
+}
+
+
+.pass {
+    margin: 5px;
+    filter: opacity(0.7) ;
+    margin-top: 20px; 
+}
+
+.pass input {
+    width: 200px;
+    border-radius: 3px;
+    background-color: transparent;
+    border-style: none;
+    border-bottom: 3px #FA8072 solid;
+}
+
+.pass ::placeholder {
+    color: white;
+    font-family: 'fira sans condensed';
+}
+
+.forgotPassword{
+    padding-left: 50px;
+    color: white;
+}
+
+#signUp {
+    color: white;
+    padding-left: 5px;
+}
+
+.submit {
+    border-radius: 20px;
+    background-color: #FA8072;
+    color: white;
+    width: 208px;
+    margin-left: 3px;
+    padding: 5px;
+    border-style: none;
+    font-family: 'fira sans condensed';
+    font-size: 15px;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: black;
+    opacity: 0.5;
+}
+
+.links {
+    padding-top: 30px;
+    font-family: 'fira sans condensed';
+}
+
+.hide{
+    display: none;
+  }
+  
+.show{
+    display: block;
+  }
+
+#signUpForm {
+      margin-bottom: 100px;  
+      position: absolute;
+      top: 250px;
+      background-color: rgb(220,220,220, 0.8);
+      padding: 0px;
+      padding-bottom: 60px;
+      border-radius: 10px;
+    }
+
+#firstName {
+    padding: 5px;
+    margin: 10px;
+    border-radius: 50px;
+    border-style: none;
+    background-color: rgba(8, 8, 8);
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+}
+
+#lastName {
+    padding: 5px;
+    margin: 10px;
+    border-radius: 50px;
+    border-style: none;
+    background-color: rgba(8, 8, 8);
+    text-align: center;
+    color: white;
+}
+
+#email {
+    padding: 5px;
+    margin: 10px;
+    border-radius: 50px;
+    border-style: none;
+    background-color: rgba(8, 8, 8);
+    text-align: center;
+    margin-top: 20px;
+    color: white;
+}
+
+#pW {
+    padding: 5px;
+    margin: 10px;
+    border-radius: 50px;
+    border-style: none;
+    background-color: rgba(8, 8, 8);
+    text-align: center;
+    color: white;
+}
+
+h3 {
+    text-align: center;
+    font-size: 30px;
+    margin-bottom: -10px;
+    margin-top: -1px;
+    padding-top: 15px;
+    
+}
+
+p {
+    text-align: center;
+    font-family: 'fira sans condensed';
+}
+
+#male {
+    margin-left: 60px;
+    margin-top: 30px;
+    
+}
+
+#female {
+    margin-left: 120px;
+}
+
+#signUpSubmit {
+    border-radius: 20px;
+    background-color: #FA8072;
+    color: white;
+    width: 208px;
+    padding: 5px;
+    border-style: none;
+    font-family: 'fira sans condensed';
+    font-size: 15px;
+    margin-top: 30px;
+    margin-left: 70px;
+   
+}
+
+
+
+  
