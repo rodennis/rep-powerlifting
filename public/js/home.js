@@ -1,11 +1,11 @@
 const container = document.querySelector('#container');
 const newUserPost = document.querySelector('#newUserPost');
 
-newUserPost.addEventListener('click', function () {
+newUserPost.addEventListener('click', () => {
 
     const newPost = document.createElement('div');
         newPost.classList.add('newPost');
-        container.appendChild(newPost);
+        container.prepend(newPost);
 
     const frame = document.createElement('iframe');
     frame.classList.add('frame');
@@ -28,14 +28,15 @@ newUserPost.addEventListener('click', function () {
 
     const fileUpload = document.createElement('input');
         newPost.appendChild(fileUpload).name = 'uploadedfile';
-        newPost.appendChild(fileUpload).type = 'file'
+        newPost.appendChild(fileUpload).type = 'file';
         fileUpload.classList.add('fileUpload');
 
     const submitPost = document.createElement('input');
         newPost.appendChild(submitPost).id = 'submitPost';
-        newPost.appendChild(submitPost).type = 'submit'
-        newPost.appendChild(submitPost).value = 'upload file'
+        newPost.appendChild(submitPost).type = 'submit';
+        newPost.appendChild(submitPost).value = 'upload file';
     
 
 }
 )
+
