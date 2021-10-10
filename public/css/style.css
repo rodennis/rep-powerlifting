@@ -128,6 +128,10 @@ button:hover {
     color: white;
 }
 
+input:focus {
+    outline:none;
+}
+
 #lastName {
     padding: 5px;
     margin: 10px;
@@ -195,6 +199,20 @@ p {
     margin-top: 30px;
     margin-left: 70px;
    
+}
+
+#closeForm {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+    background: none;
+    border-style: none;
+    font-size: 20px;
+}
+
+#closeForm:hover {
+    background: none;
 }
 
 
