@@ -20,16 +20,11 @@
     <!--This is the login screen div-->
     <div class="loginScreen">
         <form action="" method="">
-        <div class="user">
-        <input name="username" id="userName"type="text" placeholder="Username">
-    </div>
-   
-    <div class="pass">
-        <input name="Password" id="passWord" type="password" type="text" placeholder="Password">
-    </div>
-   
-    <button class="submit" type="submit">Login</button>
+            <input name="username" id="userName"type="text" placeholder="Email"><br>
+            <input name="Password" id="passWord" type="password" type="text" placeholder="Password"><br>
+            <button class="submit" type="submit">Login</button>
        </form>
+
     <div class="links">
         <a id="signUp" href="#"value="Show div">Sign Up</a> 
         <a class="forgotPassword" href="#">Forgot Password</a>
@@ -43,12 +38,12 @@
         <p>It only takes a second!</p>
         <hr>
         <form action="/api/user" method="POST">
-        <button id="closeForm">x</button>
-        <input id="firstName" type="text" placeholder="First name" name="first" required>
-        <input id="lastName" type="text" placeholder="Last name" name="last" required><br>
-        <input id="email" type="email" placeholder="Email" name="email" required>
-        <input id="pW" type="password" placeholder="New password" name="password" required><br>
-        <button id="signUpSubmit" type="submit">Sign Up</button>
+            <button id="closeForm">x</button>
+            <input id="firstName" type="text" placeholder="First name" name="first" required>
+            <input id="lastName" type="text" placeholder="Last name" name="last" required><br>
+            <input id="email" type="email" placeholder="Email" name="email" required>
+            <input id="pW" type="password" placeholder="New password" name="password" required><br>
+            <button id="signUpSubmit" type="submit">Sign Up</button>
         </form>
     </div>
 </body>

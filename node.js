@@ -9,14 +9,13 @@ dotenv.config()
 const app = express();
 const port = process.env.PORT || 8080
 
-app.use(express.static(__dirname + '/public'));
-
 
 const mySQLString = process.env.CLEARDB_DATABASE_URL;
 const database = new Prohairesis(mySQLString);
 
 app.use(morgan('dev'));
 app.use(express.static('views'));
+app.use(express.static(__dirname + '/public'));
 
 app.use(express.json());
 app.use(express.urlencoded({
