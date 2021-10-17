@@ -12,10 +12,12 @@ button.addEventListener('click', function getInput() {
         alert("Incorrect Username or Password!")
         return console.error("error");
     }
-    
-    else {
-        window.location('home.html')
+    else { 
+        console.log(userName, passWord)
+        document.getElementById("userName").value = '';
+        document.getElementById("passWord").value = '';
     }
+    
 })
 
 //calling the pop up window for the sign up screen //
@@ -57,16 +59,4 @@ signUpSubmit.addEventListener('click', function register() {
         alert("Sign up successful!")
     }
 })
-
-/*localStorage.setItem("lastname", "Smith");
-document.getElementById("result").innerHTML = localStorage.getItem("lastname");**/
-
-const saveToLocalStorage = () => {
-    localStorage.setItem("firstName", first);
-    localStorage.setItem("lastname", last);
-    localStorage.setItem("email", email);
-    localStorage.setItem("password", pW);
-}
-
-saveToLocalStorage()
 
