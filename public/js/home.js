@@ -17,7 +17,7 @@ newUserPost.addEventListener('click', () => {
 
     const form = document.createElement('form');
         newPost.appendChild(form).enctype = 'multipart/form-data';
-        newPost.appendChild(form).action = '';
+        newPost.appendChild(form).action = '/api/userpost';
         newPost.appendChild(form).method = 'POST';
     
 

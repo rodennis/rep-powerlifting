@@ -22,6 +22,17 @@ app.use(express.urlencoded({
   extended: false
 }));
 
+app.get('/api/user', async (req, res) => {
+    const users = await database.query(`
+        SELECT
+            email,
+            password
+        FROM
+            User
+    `)
+    res.end('user logged in')
+})
+
 app.post('/api/user', async (req, res) => {
     const body = req.body;
 
