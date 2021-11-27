@@ -1,16 +1,15 @@
-body {
+.container {
   min-height: 100vh;
   background-image: url("../photos/Deadlift-2.jpg");
   background-position: center;
   background-size: cover;
-  
-  
 }
 
 .login {
   display: flex;
   align-items: center;
   flex-direction: column;
+  
 }
 
 .logo {
