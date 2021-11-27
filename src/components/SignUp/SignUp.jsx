@@ -28,7 +28,7 @@ function SignUp() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios.post('http://localhost:3001/register', userData).then((res) => {
+    axios.post('http://localhost:3001/SignUp', userData).then((res) => {
       console.log(res);
     })
     navigate("/", { replace: true })

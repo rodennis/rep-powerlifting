@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, Routes, Route} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom"
@@ -12,7 +12,7 @@ function Login() {
   const [loginStatus, setLoginStatus] = useState('')
   const [returnedData, setReturnedData] = useState([])
 
-  let navigate = useNavigate()
+  const navigate = useNavigate()
 
   const userData = {
     email: loginemail,
@@ -21,19 +21,21 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await axios.post('http://localhost:3001/login', userData).then((res) => {
+    await axios.post('http://localhost:3001/', userData).then((res) => {
       setReturnedData(res.data[0])
-      if (returnedData) {
-        returnedData.email === loginemail && returnedData.password === loginpassword ? navigate("/home", { replace: true }) : console.log('error');
-      } else {
-        console.log('error');
-      }
     })
-    
   }
 
-  
-  
+  useEffect(() => {
+    if (returnedData) {
+      if (returnedData.email === loginemail && returnedData.password === loginpassword) {
+        navigate("/home")
+    }
+    } else {
+      setLoginStatus('Incorrect Email/Password Combination');
+    }
+  }, [returnedData])
+
   return (
     <div className="container">
     <div className='login'>

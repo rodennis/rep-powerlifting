@@ -13,7 +13,7 @@ const db = mysql.createConnection({
   database: 'rep-powerlifting',
 })
 
-app.post('/register', (req, res) => {
+app.post('/SignUp', (req, res) => {
 
   const firstname = req.body.firstname
   const lastname = req.body.lastname
@@ -28,7 +28,7 @@ app.post('/register', (req, res) => {
   )
 })
 
-app.post('/login', (req, res) => {
+app.post('/', (req, res) => {
   const email = req.body.email
   const password = req.body.password
 
