@@ -2,46 +2,74 @@ import React from 'react'
 import{ Image }from 'cloudinary-react'
 import { CloudinaryContext } from 'cloudinary-react'
 import axios from 'axios'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
+import '../Main/Main.css'
 
 function Main(props) {
 
-  const [returnedMedia, setReturnedMedia] = useState('')
+  const [returnedData, setReturnedData] = useState([])
+  const [media, setMedia] = useState('')
+  const [toggle, setToggle] = useState(false)
 
   const mediaData = {
-    userMedia: returnedMedia,
+    media: media,
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
 
     const formData = new FormData()
-    formData.append('file', props.media)
+    formData.append('file', props.userMedia)
     formData.append('upload_preset', 'eerkoz7s')
 
     axios.post('https://api.cloudinary.com/v1_1/rep-powerlifting/image/upload', formData).then((response) => {
       console.log(response.data.public_id);
-      setReturnedMedia(response.data.public_id);
+      setMedia(response.data.public_id);
+    })
+    setToggle(prevToggle => !prevToggle)
+  }
+  console.log(media);
+
+  const firstUpdate = useRef(true)
+  useEffect(() => {
+    if (firstUpdate.current) {
+      firstUpdate.current = false;
+      return;
+    }
+    axios.post('http://localhost:3001/media', mediaData)  
+  }, [media])
+  
+  useEffect(() => {
+  const apiDataReturned = async () => {
+    await axios.get('http://localhost:3001/returnedmedia').then((res) => {
+      setReturnedData(res.data)
     })
   }
-
-  useEffect(() => {
-    axios.post('http://localhost:3001/media', mediaData)
-  
-      console.log(returnedMedia);
-  
-  }, [returnedMedia])
+    apiDataReturned()
+  }, [toggle])
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="file" onChange={e => {props.setMedia(e.target.files[0])}}/>
+        <input type="file" onChange={e => {props.setUserMedia(e.target.files[0])}}/>
         <button>Submit</button>
-        <CloudinaryContext cloudName="rep-powerlifting">
+
+        {returnedData.map((data) => (
+          <div className='user-post'>
+          <CloudinaryContext cloudName="rep-powerlifting">
           <div>
-            <Image publicId="ktfeh7spfpsj24hnl4zh" width="50" />
+            <Image publicId={data.media} width="600" height='600' />
           </div>
-        </CloudinaryContext>
+            </CloudinaryContext>
+            <div className='comments-div'>
+              
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae rem, magnam velit sit quo delectus illum accusantium suscipit distinctio quidem. Magni harum vel veritatis numquam aut cumque dolorem neque laborum.
+              <hr />
+            <div className='leave-comment'><input type="text" name="" id="" /></div>
+            </div>
+          
+        </div>
+        ))}
       </form>
     </div>
   )

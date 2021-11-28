@@ -5,12 +5,12 @@ import { useState } from 'react'
 
 function Home() {
 
-  const [media, setMedia] = useState([])
+  const [userMedia, setUserMedia] = useState([])
 
   return (
     <div className='home'>
       <h1>Home page</h1>
-      <Main media={media} setMedia={setMedia}/>
+      <Main userMedia={userMedia} setUserMedia={setUserMedia}/>
     </div>
   )
 }

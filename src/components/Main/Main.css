@@ -1,0 +1,16 @@
+.userPost {
+}
+
+.comments-div {
+  width: 600px;
+  height: 200px;
+  border: 1px lightgray solid;
+  margin: auto;
+  margin-top: none;
+  margin-bottom: 30px;
+}
+
+.leave-comment {
+  bottom: 0px;
+  position: absolute;
+}

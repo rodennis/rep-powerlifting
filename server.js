@@ -50,11 +50,28 @@ app.post('/', (req, res) => {
 })
 
 app.post('/media', (req, res) => {
-  const userMedia = req.body.returnedMedia
+  const media = req.body.media
 
   db.query(
-    'INSERT INTO Media (userMedia) VALUE (?)', [userMedia], (err, result) => {
+    'INSERT INTO media (media) VALUE (?)', [media], (err, result) => {
    console.log(err); 
+  }
+  )
+})
+
+app.get('/returnedmedia', (req, res) => {
+  db.query(
+    'SELECT * FROM media', (err, result) => {
+      console.log(result);
+      if (err) {
+        res.send({err: err})
+      }
+
+      if (result.length > 0) {
+        res.send(result)
+      } else {
+        res.send({message: 'There was no data'})
+      } 
   }
   )
 })
