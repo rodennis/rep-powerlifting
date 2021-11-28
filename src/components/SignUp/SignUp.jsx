@@ -31,7 +31,7 @@ function SignUp() {
     axios.post('http://localhost:3001/SignUp', userData).then((res) => {
       console.log(res);
     })
-    navigate("/", { replace: true })
+    navigate("/")
   }
 
   return (
@@ -48,9 +48,7 @@ function SignUp() {
           <input type="text" id='phone' placeholder='(000)-000-0000' value={phone} onChange={(e) => {setPhone(e.target.value)}}/><br />
           <input type="password" id='pW' placeholder='Password' value={password} onChange={(e) => {setPass(e.target.value)}} required/>
           <input type="password" id='confPw' placeholder='Confirm Password' value={confPass} onChange={(e) => { setConfPass(e.target.value) }} required /><br />
-          {/* <Link to='/'> */}
           <button id='signUpSubmit'>Sign Up</button>
-          {/* </Link> */}
         </form>
       </div>
     </div>

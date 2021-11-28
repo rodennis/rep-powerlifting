@@ -3,6 +3,8 @@ const cors = require('cors')
 const mysql = require('mysql2')
 const app = express()
 
+const port  = 3001
+
 app.use(express.json())
 app.use(cors())
 
@@ -47,6 +49,16 @@ app.post('/', (req, res) => {
   )
 })
 
-app.listen(3001, () => {
-  console.log('running server');
+app.post('/media', (req, res) => {
+  const userMedia = req.body.returnedMedia
+
+  db.query(
+    'INSERT INTO Media (userMedia) VALUE (?)', [userMedia], (err, result) => {
+   console.log(err); 
+  }
+  )
+})
+
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 })

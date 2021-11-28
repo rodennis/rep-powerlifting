@@ -44,8 +44,8 @@ function Login() {
       </div>
       <div className="loginscreen">
         <form onSubmit={handleSubmit}>
-          <input type="text" id='username' placeholder='Email' value={loginemail} onChange={(e) => {setLoginEmail(e.target.value)}} required/><br/>
-          <input type="password" id='password' placeholder='Password' value={loginpassword} onChange={(e) => {setLoginpassword(e.target.value)}} required/><br/>
+          <input className='input' type="text" id='username' placeholder='Email' value={loginemail} onChange={(e) => {setLoginEmail(e.target.value)}} required/><br/>
+          <input className='input' type="password" id='password' placeholder='Password' value={loginpassword} onChange={(e) => {setLoginpassword(e.target.value)}} required/><br/>
           <button className='submit'>Login</button>
         </form>
 

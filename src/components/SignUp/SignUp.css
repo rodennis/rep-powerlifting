@@ -24,6 +24,8 @@ background-color: rgba(8, 8, 8);
 text-align: center;
 margin-top: 40px;
 color: white;
+width: 200px;
+filter: opacity(0.7);
 }
 
 input:focus {
@@ -38,6 +40,8 @@ border-style: none;
 background-color: rgba(8, 8, 8);
 text-align: center;
 color: white;
+width: 200px;
+filter: opacity(0.7);
 }
 
 #email {
@@ -49,6 +53,8 @@ background-color: rgba(8, 8, 8);
 text-align: center;
 margin-top: 40px;
 color: white;
+width: 200px;
+filter: opacity(0.7);
 }
 
 #phone {
@@ -60,6 +66,8 @@ background-color: rgba(8, 8, 8);
 text-align: center;
 margin-top: 40px;
 color: white;
+width: 200px;
+filter: opacity(0.7);
 }
 
 #pW {
@@ -71,6 +79,8 @@ background-color: rgba(8, 8, 8);
 text-align: center;
 margin-top: 40px;
 color: white;
+width: 200px;
+filter: opacity(0.7);
 }
 
 #confPw {
@@ -81,6 +91,8 @@ color: white;
   background-color: rgba(8, 8, 8);
   text-align: center;
   color: white;
+  width: 200px;
+  filter: opacity(0.7);
   }
 
 h3 {
