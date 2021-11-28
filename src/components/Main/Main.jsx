@@ -63,9 +63,12 @@ function Main(props) {
             </CloudinaryContext>
             <div className='comments-div'>
               
+              <div className="comments">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Repudiandae rem, magnam velit sit quo delectus illum accusantium suscipit distinctio quidem. Magni harum vel veritatis numquam aut cumque dolorem neque laborum.
-              <hr />
-            <div className='leave-comment'><input type="text" name="" id="" /></div>
+            </div>
+              <div className='leave-comment'>
+                <textarea className='enter-comment' rows="3" placeholder='Leave a Comment'></textarea>
+              </div>
             </div>
           
         </div>

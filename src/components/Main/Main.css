@@ -1,16 +1,33 @@
 .userPost {
+  
 }
 
 .comments-div {
-  width: 600px;
+  width: 598px;
   height: 200px;
   border: 1px lightgray solid;
   margin: auto;
-  margin-top: none;
+  margin-top: -4px;
   margin-bottom: 30px;
+  display: grid;
+  grid-template-rows: 50px 100px 50px;
+  grid-template-columns: 1fr fr 1fr ;
+  grid-template-areas: 
+  'B B B'
+  'C C C'
+  'T T T';
+}
+
+.comments {
+  grid-area: C;
 }
 
 .leave-comment {
-  bottom: 0px;
-  position: absolute;
+ grid-area: T;
+}
+
+.enter-comment {
+  width:594px;
+  border: none;
+  border-top: 1px solid lightgray;
 }
