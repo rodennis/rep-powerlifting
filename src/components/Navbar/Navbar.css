@@ -1,0 +1,12 @@
+nav {
+  height: 50px;
+  border-bottom: 1px solid lightgray;
+  display: flex;
+}
+
+.nav-logo {
+  flex: 1;
+  font-size: 20px;
+  margin-top: 0px;
+  margin-left: -600px;
+}
