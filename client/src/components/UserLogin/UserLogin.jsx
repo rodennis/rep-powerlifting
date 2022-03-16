@@ -1,19 +1,18 @@
-import React, {useState} from 'react'
-import { Link } from 'react-router-dom'
-import './Login.css'
-import { googleLogin, emailPasswordSignIn } from '../../firebase/auth'
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import React, {useState} from "react"
+import {useNavigate, Link} from 'react-router-dom'
+import {googleLogin, emailPasswordSignIn} from '../../firebase/auth'
+import './UserLogin.css'
 
-function Login({setUser}) {
+function UserLogin({setUser}) {
 
-  const history = useHistory()
+ const navigate = useNavigate()
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const handleGoogleLogin = async () => {
       const user = await googleLogin();
       await setUser(user?.displayName);
-      history.push('/')
+      navigate('/home')
   }
   const handleSubmit = async () => {
       const user = await emailPasswordSignIn(email, password);
@@ -22,7 +21,7 @@ function Login({setUser}) {
       if (Object.values(user)[0] === "firebase"){
           await console.log('success')
           await setUser(user?.displayName)
-          await history.push('/')
+          await navigate('/')
 
       }else {
           await console.log('failure')
@@ -42,13 +41,13 @@ function Login({setUser}) {
         <form onSubmit={handleSubmit}>
           <input className='input' type="text" id='username' placeholder='Email' value={email} onChange={(e) => {setEmail(e.target.value); setError('')}} required/><br/>
           <input className='input' type="password" id='password' placeholder='Password' value={password} onChange={(e) => {setPassword(e.target.value); setError('')}} required/><br/>
-          <button className='submit'>Login</button>
+          <button className='submit'>Login</button><br />
           <button className='submit' onClick={() => {handleGoogleLogin()}}>Login With Google</button>
 
         </form>
 
         <div className="links">
-          <Link id='signUp' to='/SignUp'>Sign Up</Link>
+          <Link id='signUp' to='/signup'>Sign Up</Link>
           <Link className='forgotPassword' to='/ForgotPassword'>Forgot Password</Link>
 
         </div>
@@ -58,4 +57,4 @@ function Login({setUser}) {
   )
 }
 
-export default Login
+export default UserLogin
