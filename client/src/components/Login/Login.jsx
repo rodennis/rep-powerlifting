@@ -1,40 +1,35 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import { useNavigate } from "react-router-dom"
 import './Login.css'
+import { googleLogin, emailPasswordSignIn } from '../../firebase/auth'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 
-function Login() {
+function Login({setUser}) {
 
-  const [loginemail, setLoginEmail] = useState('')
-  const [loginpassword, setLoginpassword] = useState('')
-  const [loginStatus, setLoginStatus] = useState('')
-  const [returnedData, setReturnedData] = useState([])
-
-  const navigate = useNavigate()
-
-  const userData = {
-    email: loginemail,
-    password: loginpassword,
+  const history = useHistory()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const handleGoogleLogin = async () => {
+      const user = await googleLogin();
+      await setUser(user?.displayName);
+      history.push('/')
   }
+  const handleSubmit = async () => {
+      const user = await emailPasswordSignIn(email, password);
+      await console.log(Object.values(user))
+      await console.log(user["FirebaseError"])
+      if (Object.values(user)[0] === "firebase"){
+          await console.log('success')
+          await setUser(user?.displayName)
+          await history.push('/')
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    await axios.post('http://localhost:3001/', userData).then((res) => {
-      setReturnedData(res.data[0])
-    })
+      }else {
+          await console.log('failure')
+          await console.log(Object.values(user))
+          setError(Object.values(user)[0].slice(5))
+      }
   }
-
-  useEffect(() => {
-    if (returnedData) {
-      if (returnedData.email === loginemail && returnedData.password === loginpassword) {
-        navigate("/home")
-    }
-    } else {
-      setLoginStatus('Incorrect Email/Password Combination');
-    }
-  }, [returnedData])
 
   return (
     <div className="container">
@@ -43,10 +38,13 @@ function Login() {
         <p>Rep<br/>Powerlifting</p>
       </div>
       <div className="loginscreen">
+      <p style={{backgroundColor: 'lightpink', textAlign: 'center'}}>{error}</p>
         <form onSubmit={handleSubmit}>
-          <input className='input' type="text" id='username' placeholder='Email' value={loginemail} onChange={(e) => {setLoginEmail(e.target.value)}} required/><br/>
-          <input className='input' type="password" id='password' placeholder='Password' value={loginpassword} onChange={(e) => {setLoginpassword(e.target.value)}} required/><br/>
+          <input className='input' type="text" id='username' placeholder='Email' value={email} onChange={(e) => {setEmail(e.target.value); setError('')}} required/><br/>
+          <input className='input' type="password" id='password' placeholder='Password' value={password} onChange={(e) => {setPassword(e.target.value); setError('')}} required/><br/>
           <button className='submit'>Login</button>
+          <button className='submit' onClick={() => {handleGoogleLogin()}}>Login With Google</button>
+
         </form>
 
         <div className="links">
@@ -55,7 +53,6 @@ function Login() {
 
         </div>
       </div>
-      <h1>{loginStatus}</h1>
       </div>
       </div>
   )

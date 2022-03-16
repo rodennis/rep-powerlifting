@@ -1,15 +1,13 @@
 import React from 'react'
 import '../Navbar/Navbar.css'
+import Upload from '../Upload/Upload'
 
-function Navbar(props) {
+function Navbar() {
   return (
     <div>
       <nav>
         <h1 className='nav-logo'>rep<br />powerlifting</h1>
-        <form onSubmit={props.handleSubmit}>
-        <input type="file" onChange={e => {props.setUserMedia(e.target.files[0])}}/>
-        <button>Submit</button>
-      </form>
+          <Upload />
       </nav>
     </div>
   )
