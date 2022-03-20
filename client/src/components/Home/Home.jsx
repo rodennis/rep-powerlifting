@@ -1,12 +1,17 @@
 import React from "react";
 import "./Home.css";
-import '../../firebase/firebase.js'
 
-function Home() {
+function Home({posts}) {
   
   return (
     <div className="home">
-      
+      {
+        posts?.map(post => (
+          <div>
+            <img className="pic" src={post.picUrl} alt="" />
+          </div>
+        ))
+      }
     </div>
   );
 }
