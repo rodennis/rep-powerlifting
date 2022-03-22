@@ -5,12 +5,17 @@ import "../../firebase/firebase.js";
 import { db } from "../../firebase/firebase";
 import { uid } from "uid";
 import { set, ref as dbRef } from "firebase/database";
+import "./Upload.css";
+import video from '../../photos/lift.MOV'
+import VideoConverter from 'convert-video'
 
 function Upload({ setToggle, user }) {
   const [progress, setProgress] = useState(0);
   const [picUrl, setPicUrl] = useState("");
-  const [pickedPicture, setPickedPicture] = useState('')
-  const [message, setMessage] = useState('')
+  const [pickedPicture, setPickedPicture] = useState();
+  const [temp, setTemp] = useState('')
+  const [message, setMessage] = useState("");
+  const [converted, setConverted] = useState({})
 
   const firstUpdate = useRef(true);
 
@@ -24,13 +29,13 @@ function Upload({ setToggle, user }) {
       set(dbRef(db, `/${uuid}`), {
         picUrl,
         user,
-        uuid
+        uuid,
       });
       console.log("fired");
     };
     writeToDatabase();
     setToggle((prevToggle) => !prevToggle);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [picUrl]);
 
   const handleSubmit = (e) => {
@@ -61,16 +66,46 @@ function Upload({ setToggle, user }) {
     );
   };
 
+  const handleChange = (e) => {
+    setPickedPicture(URL.createObjectURL(e.target.files[0]))
+    setTemp(e.target.files[0])
+    async function convertVideo(input) {
+      let sourceVideoFile = input.files[0];
+      let targetVideoFormat = 'mp4'
+      return await VideoConverter.convert(sourceVideoFile, targetVideoFormat);
+  }
+  setConverted(convertVideo(e.target))
+  }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input onChange={e => setPickedPicture(URL.createObjectURL(e.target.files[0]))} type="file" className="input" /> <br />
+        <input
+          onChange={handleChange}
+          type="file"
+          className="input"
+        />{" "}
+        <br />
+        {temp?.type === "video/quicktime" ? (
+          <video className="picked-video" controls autoPlay loop muted>
+            <source
+              src={converted}
+              type="video/mp4"
+            ></source>
+          </video>
+        ) : (
+          <img
+            className="picked-picture"
+            src={pickedPicture}
+            alt=""
+          />
+        )}{" "}
+        <br />
         <textarea name="" id="" cols="30" rows="5"></textarea> <br />
         <button>Upload</button>
       </form>
       <br />
       <h3>Uploaded {progress} %</h3>
-      <img src={pickedPicture} alt="" />
       <br />
     </div>
   );

@@ -1,5 +1,6 @@
 import React from 'react'
 import Upload from '../../components/Upload/Upload'
+import './UserUpload.css'
 
 function UserUpload() {
   return (
