@@ -9,6 +9,8 @@ import { set, ref as dbRef } from "firebase/database";
 function Upload({ setToggle, user }) {
   const [progress, setProgress] = useState(0);
   const [picUrl, setPicUrl] = useState("");
+  const [pickedPicture, setPickedPicture] = useState('')
+  const [message, setMessage] = useState('')
 
   const firstUpdate = useRef(true);
 
@@ -62,11 +64,13 @@ function Upload({ setToggle, user }) {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input type="file" className="input" />
+        <input onChange={e => setPickedPicture(URL.createObjectURL(e.target.files[0]))} type="file" className="input" /> <br />
+        <textarea name="" id="" cols="30" rows="5"></textarea> <br />
         <button>Upload</button>
       </form>
       <br />
       <h3>Uploaded {progress} %</h3>
+      <img src={pickedPicture} alt="" />
       <br />
     </div>
   );

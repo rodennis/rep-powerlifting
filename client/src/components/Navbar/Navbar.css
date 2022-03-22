@@ -1,12 +1,40 @@
 nav {
-  height: 50px;
+  height: 3rem;
   border-bottom: 1px solid lightgray;
   display: flex;
+  position: fixed;
+  width: 100%;
 }
 
 .nav-logo {
   flex: 1;
-  font-size: 20px;
+  font-size: 1.2rem;
   margin-top: 0px;
-  margin-left: -600px;
+  margin-right: 200px;
+}
+
+.add-post {
+  width: 1.5rem;
+}
+
+.nav-logo-div {
+  flex: 1;
+  display: absolute;
+  left: 0px;
+}
+
+.add-div {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.add-div button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  left: 150px;
 }
