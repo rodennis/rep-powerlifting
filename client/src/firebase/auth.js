@@ -16,12 +16,16 @@ export const googleLogin = async () => {
 	return user;
 };
 
-export const emailPasswordSignUp = async (userName, email, password) => {
+export const emailPasswordSignUp = async (userName, email, password, phoneNumber) => {
     try {
         const userCredential = await createUserWithEmailAndPassword(auth,email,password);
         const user = await userCredential?.user;
-        await updateProfile(auth.currentUser, { displayName: userName })
-        return user
+        await updateProfile(auth.currentUser, { displayName: userName, phoneNumber: phoneNumber })
+        if(user){
+            return user
+        }else {
+            console.log('it failed')
+        }
     } catch (error) {
         return error
     }
