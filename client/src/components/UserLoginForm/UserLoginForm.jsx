@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Google from '../../photos/google.png'
 
 function UserLoginForm(props) {
   const {
@@ -53,15 +54,16 @@ function UserLoginForm(props) {
               required
             />
             <br />
-            <button className="submit">Login</button>
+            <button className="submit">Sign In</button>
             <br />
+            <img className="google-logo" src={Google} alt="" />
             <button
-              className="submit"
+              className="google-login"
               onClick={() => {
                 handleGoogleLogin();
               }}
             >
-              Login With Google
+              Sign In With Google
             </button>
           </form>
 
