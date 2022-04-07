@@ -1,38 +1,25 @@
 import React, { useState } from "react";
 import "./Home.css";
 import Navbar from "../../components/Navbar/Navbar";
-import video from '../../photos/lift.MOV'
-import VideoConverter from 'convert-video'
+import video from "../../photos/lift.MOV";
+import "../../firebase/firebase";
+import { CloudinaryContext, Transformation, Video } from "cloudinary-react";
 
-function Home({posts}) {
-
-  const [temp, setTemp] = useState('')
-
-  VideoConverter.convert(video, 'mp4');
-  async function convertVideo(input) {
-    let sourceVideoFile = video
-    let targetVideoFormat = 'mp4'
-    let convertedVideo = await VideoConverter.convert(sourceVideoFile, targetVideoFormat);
-    setTemp(convertedVideo)
-}
-convertVideo()
-  
+function Home({ posts, media }) {
   return (
     <div className="home">
       <Navbar />
-      {
-        posts?.map(post => (
-          <div>
-            <img className="pic" src={post.picUrl} alt="" />
-          </div>
-        ))
-      }
-      <video className="picked-video" controls autoPlay loop muted>
-            <source
-              src={temp}
-              type="video/mp4"
-            ></source>
-          </video>
+      <CloudinaryContext cloudName="rep-powerlifting">
+        <div>
+          <Video
+            onClick={(event) => event.target.play()}
+            onScroll={(event) => event.target.pause()}
+            publicId="IMG_4378_xjcm8l"
+            width="600"
+            height="600"
+          />
+        </div>
+      </CloudinaryContext>
     </div>
   );
 }

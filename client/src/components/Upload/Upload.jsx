@@ -1,112 +1,72 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ref, uploadBytesResumable, getDownloadURL } from "@firebase/storage";
-import { storage } from "../../firebase/firebase";
-import "../../firebase/firebase.js";
-import { db } from "../../firebase/firebase";
-import { uid } from "uid";
-import { set, ref as dbRef } from "firebase/database";
 import "./Upload.css";
-import video from '../../photos/lift.MOV'
-import VideoConverter from 'convert-video'
+import realTime from "../../firebase/realTime";
 
-function Upload({ setToggle, user }) {
-  const [progress, setProgress] = useState(0);
-  const [picUrl, setPicUrl] = useState("");
+function Upload({ setToggle, user, setMedia }) {
+
   const [pickedPicture, setPickedPicture] = useState();
-  const [temp, setTemp] = useState('')
-  const [message, setMessage] = useState("");
-  const [converted, setConverted] = useState({})
+  const [userMedia, setUserMedia] = useState([])
 
-  const firstUpdate = useRef(true);
-
-  useEffect(() => {
-    if (firstUpdate.current) {
-      firstUpdate.current = false;
-      return;
+  const createPost = async (data) => {
+    try{
+      const res = realTime.post('/posts.json', data)
+      return res
+    } catch(error) {
+      console.log(error)
     }
-    const writeToDatabase = () => {
-      const uuid = uid();
-      set(dbRef(db, `/${uuid}`), {
-        picUrl,
-        user,
-        uuid,
-      });
-      console.log("fired");
-    };
-    writeToDatabase();
-    setToggle((prevToggle) => !prevToggle);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [picUrl]);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const file = e.target[0].files[0];
-    upLoadFiles(file);
-  };
-
-  const upLoadFiles = (file) => {
-    if (!file) return;
-    const storageRef = ref(storage, `/files/${file.name}`);
-    const uploadTask = uploadBytesResumable(storageRef, file);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const prog = Math.round(
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        );
-        setProgress(prog);
-      },
-      (err) => console.log(err),
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-          setPicUrl(url);
-        });
-      }
-    );
-  };
-
-  const handleChange = (e) => {
-    setPickedPicture(URL.createObjectURL(e.target.files[0]))
-    setTemp(e.target.files[0])
-    async function convertVideo(input) {
-      let sourceVideoFile = input.files[0];
-      let targetVideoFormat = 'mp4'
-      return await VideoConverter.convert(sourceVideoFile, targetVideoFormat);
   }
-  setConverted(convertVideo(e.target))
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const formData = new FormData();
+    formData.append("file", userMedia);
+    formData.append("upload_preset", "bt4evw90");
+
+    const data = await fetch(
+      "http://api.cloudinary.com/v1_1/rodennis/image/upload",
+      {
+        method: "POST",
+        body: formData,
+      }
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        return result;
+      });
+
+      const newPost = {
+        user: user?.displayName,
+        url: `https://res.cloudinary.com/rodennis/image/upload/v1649176656/${data?.public_id}.jpg`
+      }
+
+      await createPost(newPost)
+      setToggle(prevToggle => !prevToggle)
   }
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
+        <button>Upload</button>
         <input
-          onChange={handleChange}
+          onChange={e => setUserMedia(e.target.files[0])}
           type="file"
           className="input"
         />{" "}
         <br />
-        {temp?.type === "video/quicktime" ? (
-          <video className="picked-video" controls autoPlay loop muted>
-            <source
-              src={converted}
-              type="video/mp4"
-            ></source>
-          </video>
-        ) : (
+          {/* <video className="picked-video" controls autoPlay loop muted>
+            <source type="video/quicktime" src={pickedPicture} />
+            <source type="video/mp4" src={pickedPicture} />
+            <source type="video/ogg" src={pickedPicture} />
+          </video> */}
           <img
             className="picked-picture"
             src={pickedPicture}
             alt=""
           />
-        )}{" "}
         <br />
         <textarea name="" id="" cols="30" rows="5"></textarea> <br />
-        <button>Upload</button>
       </form>
-      <br />
-      <h3>Uploaded {progress} %</h3>
-      <br />
     </div>
   );
 }

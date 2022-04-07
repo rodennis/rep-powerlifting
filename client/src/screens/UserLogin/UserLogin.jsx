@@ -17,19 +17,20 @@ function UserLogin({ setUser }) {
     navigate("/home");
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault()
     const user = await emailPasswordSignIn(email, password);
-    await console.log(Object.values(user));
-    await console.log(user["FirebaseError"]);
-    if (Object.values(user)[0] === "firebase") {
-      await console.log("success");
-      await setUser(user);
-      await navigate("/");
-    } else {
-      await console.log("failure");
-      await console.log(Object.values(user));
-      setError(Object.values(user)[0].slice(5));
+    try {
+      if (Object.values(user)[0] === "firebase") {
+        await setUser(user);
+        navigate("/home");
+      } else {
+        setError(Object.values(user)[0].slice(5));
+      }
+    } catch (error) {
+      console.log(error)
     }
+    
   };
 
   return (

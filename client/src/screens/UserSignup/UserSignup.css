@@ -119,6 +119,11 @@ border-style: none;
 font-family: 'fira sans condensed';
 font-size: 15px;
 margin-top: 50px;
+cursor: pointer;
+}
+
+#signUpSubmit:hover {
+  background-color: black;
 }
 
 #closeForm {

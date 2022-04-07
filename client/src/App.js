@@ -15,6 +15,7 @@ function App() {
   const [user, setUser] = useState({});
   const [posts, setPosts] = useState([])
   const [toggle, setToggle] = useState(false)
+  const [media, setMedia] = useState('')
 
     useEffect(() => {
         const func = async () => {
@@ -40,8 +41,8 @@ function App() {
       <Routes>
         <Route path='/' element={<UserLogin setUser={setUser}/>} />
         <Route path='/signup' element={<UserSignup setUser={setUser}/>} />
-        <Route path='/home' element={<Home posts={posts} user={user}/>} />
-        <Route path='/upload' element={<Upload />}/>
+        {user && <Route path='/home' element={<Home posts={posts} user={user} media={media}/>} />}
+        {user && <Route path='/upload' element={<Upload setMedia={setMedia} user={user} setToggle={setToggle}/> }/>}
     </Routes>
     </div>
   );

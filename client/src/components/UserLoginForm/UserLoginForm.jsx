@@ -16,20 +16,13 @@ function UserLoginForm(props) {
 
   return (
       <div className="login">
-        {/* <div className="logo">
-          <p>
-            Rep
-            <br />
-            Powerlifting
-          </p>
-        </div> */}
         <div className="loginscreen">
           <p style={{ backgroundColor: "lightpink", textAlign: "center" }}>
             {error}
           </p>
           <form onSubmit={handleSubmit}>
             <input
-              className="input"
+              className="login-username"
               type="text"
               id="username"
               placeholder="Email"
@@ -42,7 +35,7 @@ function UserLoginForm(props) {
             />
             <br />
             <input
-              className="input"
+              className="login-password"
               type="password"
               id="password"
               placeholder="Password"
