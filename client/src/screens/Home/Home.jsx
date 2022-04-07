@@ -20,6 +20,7 @@ function Home({ posts, media }) {
           />
         </div>
       </CloudinaryContext>
+      <img src="https://res.cloudinary.com/rodennis/image/upload/v1649176656/igkqrwwjocc4clwqlzqd.jpg" alt="" />
     </div>
   );
 }

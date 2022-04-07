@@ -6,6 +6,7 @@ function Upload({ setToggle, user, setMedia }) {
 
   const [pickedPicture, setPickedPicture] = useState();
   const [userMedia, setUserMedia] = useState([])
+  const [caption, setCaption] = useState('')
 
   const createPost = async (data) => {
     try{
@@ -16,9 +17,8 @@ function Upload({ setToggle, user, setMedia }) {
     }
   }
 
-  const handleSubmit = async (e) => {
+  const handlePostSubmit = async (e) => {
     e.preventDefault()
-
     const formData = new FormData();
     formData.append("file", userMedia);
     formData.append("upload_preset", "bt4evw90");
@@ -37,35 +37,37 @@ function Upload({ setToggle, user, setMedia }) {
 
       const newPost = {
         user: user?.displayName,
-        url: `https://res.cloudinary.com/rodennis/image/upload/v1649176656/${data?.public_id}.jpg`
+        url: `https://res.cloudinary.com/rodennis/image/upload/v1649176656/${data?.public_id}.jpg`,
+        caption,
+        comments: ['these will be comments']
       }
 
       await createPost(newPost)
       setToggle(prevToggle => !prevToggle)
   }
 
+  const handleFileChange = (file) => {
+    setUserMedia(file)
+    setPickedPicture(URL.createObjectURL(file))
+  }
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handlePostSubmit}>
         <button>Upload</button>
         <input
-          onChange={e => setUserMedia(e.target.files[0])}
+          onChange={e => handleFileChange(e.target.files[0])}
           type="file"
           className="input"
         />{" "}
         <br />
-          {/* <video className="picked-video" controls autoPlay loop muted>
-            <source type="video/quicktime" src={pickedPicture} />
-            <source type="video/mp4" src={pickedPicture} />
-            <source type="video/ogg" src={pickedPicture} />
-          </video> */}
           <img
             className="picked-picture"
             src={pickedPicture}
             alt=""
           />
         <br />
-        <textarea name="" id="" cols="30" rows="5"></textarea> <br />
+        <textarea onChange={e => setCaption(e.target.value)} placeholder='Leave a caption...' cols="30" rows="5"></textarea> <br />
       </form>
     </div>
   );
