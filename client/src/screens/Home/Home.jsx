@@ -1,11 +1,20 @@
 import "./Home.css";
 import Navbar from "../../components/Navbar/Navbar";
 import "../../firebase/firebase";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import realTime from "../../firebase/realTime";
+import Play from "../../photos/play.png";
 
 function Home({ posts, user }) {
   const [comment, setComment] = useState("");
+  const [vidToggle, setVidToggle] = useState(false);
+
+  const ref = useRef(null);
+  const handlePlayVideo = () => {
+    setVidToggle((prevVidToggle) => !prevVidToggle);
+    if (!vidToggle) ref.current.play();
+    else ref.current.pause();
+  };
 
   const newComment = {
     user: user.displayName,
@@ -14,7 +23,7 @@ function Home({ posts, user }) {
 
   const handleCommentSubmit = (url, oldComments) => {
     const data = {
-      comments:  [...oldComments, newComment]
+      comments: [...oldComments, newComment],
     };
     try {
       const res = realTime.patch(`/posts/${url}.json`, data);
@@ -23,7 +32,7 @@ function Home({ posts, user }) {
     } catch (error) {
       console.log(error);
     }
-  }
+  };
 
   return (
     <div className="home">
@@ -36,16 +45,21 @@ function Home({ posts, user }) {
               {post.url?.slice(36, 41) === "image" ? (
                 <img className="pic" src={post.url} alt="" />
               ) : (
-                <video
-                  controls
-                  width="400px"
-                  height="400px"
-                  src={post.url}
-                ></video>
+                <div className="video-div">
+                  <video
+                    onClick={handlePlayVideo}
+                    ref={ref}
+                    preload="metadata"
+                    width="400px"
+                    height="400px"
+                    src={post.url}
+                  ></video>
+                  <img className={!vidToggle ? "play" : "paused"} src={Play} alt="" />
+                </div>
               )}
             </div>
             <div className="post-bottom-div">
-              {post.comments.map(comment => (
+              {post.comments.map((comment) => (
                 <div>
                   <span>{comment.user}</span>
                   <h6>{comment.comment}</h6>
@@ -53,8 +67,8 @@ function Home({ posts, user }) {
               ))}
               <form
                 onSubmit={(e) => {
-                  e.preventDefault()
-                  handleCommentSubmit(post.key, post.comments)
+                  e.preventDefault();
+                  handleCommentSubmit(post.key, post.comments);
                 }}
               >
                 <textarea

@@ -11,3 +11,23 @@
   flex-direction: column;
   margin-bottom: 50px;
 }
+
+.play {
+  width: 50px;
+  position: absolute;
+  cursor: pointer;
+}
+
+.paused {
+  display: none;
+}
+
+.video-div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  position: absolute
+}
