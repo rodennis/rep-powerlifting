@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../Navbar/Navbar.css";
 import Add from "../../photos/plus.png";
 import { signOut, getAuth } from 'firebase/auth'
+import Logo from '../../photos/rep-logo.png'
 
 function Navbar({ setToggle, user }) {
 
@@ -16,11 +17,7 @@ function Navbar({ setToggle, user }) {
     <div>
       <nav>
         <div className="nav-logo-div">
-          <h1 className="nav-logo">
-            rep
-            <br />
-            powerlifting
-          </h1>
+          <img className="logo-image" src={Logo} alt="logo" />
         </div>
         <div className="add-div">
           <Link to='/upload'>

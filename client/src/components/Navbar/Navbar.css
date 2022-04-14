@@ -2,15 +2,8 @@ nav {
   height: 3rem;
   border-bottom: 1px solid lightgray;
   display: flex;
-  position: fixed;
   width: 100%;
-}
-
-.nav-logo {
-  flex: 1;
-  font-size: 1.2rem;
-  margin-top: 0px;
-  margin-right: 200px;
+  margin-bottom: 50px;
 }
 
 .add-post {
@@ -37,4 +30,10 @@ nav {
   display: inline-block;
   position: relative;
   left: 150px;
+}
+
+.logo-image {
+  width: 75px;
+  margin-top: -10px;
+  margin-right: 250px;
 }

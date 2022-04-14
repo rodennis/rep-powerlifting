@@ -11,13 +11,12 @@ function UserSignup({ setUser }) {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState("");
-  // const [confPass, setConfPass] = useState("");
+  const [confPass, setConfPass] = useState("");
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    const user = await emailPasswordSignUp(userName, email, password, phoneNumber);
+    e.preventDefault();
+    const user = await emailPasswordSignUp(userName, email, password);
     if (Object.values(user)[0] === "firebase") {
       await console.log("success");
       await setUser(user);
@@ -31,8 +30,8 @@ function UserSignup({ setUser }) {
   return (
     <div className="container">
       <div id="signUpForm">
-        <h3>Sign Up</h3>
-        <p>It only takes a second!</p>
+        <h3 className="sign-up-h3">Sign Up</h3>
+        <p className="sign-up-p">It only takes a second!</p>
         <p style={{ backgroundColor: "lightpink", textAlign: "center" }}>
           {error}
         </p>
@@ -42,8 +41,9 @@ function UserSignup({ setUser }) {
             x
           </Link>
           <input
+            style={{ marginTop: "40px" }}
             type="text"
-            id="firstName"
+            className="sign-up-input"
             placeholder="First Name"
             value={firstName}
             onChange={(e) => {
@@ -53,7 +53,7 @@ function UserSignup({ setUser }) {
           />
           <input
             type="text"
-            id="lastName"
+            className="sign-up-input"
             placeholder="Last Name"
             value={lastName}
             onChange={(e) => {
@@ -63,8 +63,9 @@ function UserSignup({ setUser }) {
           />
           <br />
           <input
+            style={{ marginTop: "40px" }}
             type="email"
-            id="email"
+            className="sign-up-input"
             placeholder="Email"
             value={email}
             onChange={(e) => {
@@ -74,17 +75,18 @@ function UserSignup({ setUser }) {
           />
           <input
             type="text"
-            id="phone"
-            placeholder="(000)-000-0000"
-            value={phoneNumber}
+            className="sign-up-input"
+            placeholder="Username"
+            value={userName}
             onChange={(e) => {
-              setPhoneNumber(e.target.value);
+              setUserName(e.target.value);
             }}
           />
           <br />
           <input
+            style={{ marginTop: "40px" }}
             type="password"
-            id="pW"
+            className="sign-up-input"
             placeholder="Password"
             value={password}
             onChange={(e) => {
@@ -94,11 +96,11 @@ function UserSignup({ setUser }) {
           />
           <input
             type="password"
-            id="confPw"
-            placeholder="Username"
-            value={userName}
+            className="sign-up-input"
+            placeholder="Confirm Password"
+            value={confPass}
             onChange={(e) => {
-              setUserName(e.target.value);
+              setConfPass(e.target.value);
             }}
             required
           />

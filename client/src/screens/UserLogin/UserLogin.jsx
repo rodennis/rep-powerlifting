@@ -14,7 +14,7 @@ function UserLogin({ setUser }) {
   const handleGoogleLogin = async () => {
     const user = await googleLogin();
     await setUser(user?.displayName);
-    navigate("/home");
+    navigate("/");
   };
 
   const handleSubmit = async (e) => {
@@ -23,7 +23,7 @@ function UserLogin({ setUser }) {
     try {
       if (Object.values(user)[0] === "firebase") {
         await setUser(user);
-        navigate("/home");
+        navigate("/");
       } else {
         setError(Object.values(user)[0].slice(5));
       }

@@ -1,26 +1,72 @@
-import React, { useState } from "react";
 import "./Home.css";
 import Navbar from "../../components/Navbar/Navbar";
-import video from "../../photos/lift.MOV";
 import "../../firebase/firebase";
-import { CloudinaryContext, Transformation, Video } from "cloudinary-react";
+import { useState } from "react";
+import realTime from "../../firebase/realTime";
 
-function Home({ posts, media }) {
+function Home({ posts, user }) {
+  const [comment, setComment] = useState("");
+
+  const newComment = {
+    user: user.displayName,
+    comment,
+  };
+
+  const handleCommentSubmit = (url, oldComments) => {
+    const data = {
+      comments:  [...oldComments, newComment]
+    };
+    try {
+      const res = realTime.patch(`/posts/${url}.json`, data);
+      console.log(res);
+      return res;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <div className="home">
       <Navbar />
-      <CloudinaryContext cloudName="rep-powerlifting">
-        <div>
-          <Video
-            onClick={(event) => event.target.play()}
-            onScroll={(event) => event.target.pause()}
-            publicId="IMG_4378_xjcm8l"
-            width="600"
-            height="600"
-          />
-        </div>
-      </CloudinaryContext>
-      <img src="https://res.cloudinary.com/rodennis/image/upload/v1649176656/igkqrwwjocc4clwqlzqd.jpg" alt="" />
+      {posts &&
+        posts.map((post, index) => (
+          <div key={index} className="post-div">
+            <div className="post-top-div">{post.user}</div>
+            <div className="post-middle-div">
+              {post.url?.slice(36, 41) === "image" ? (
+                <img className="pic" src={post.url} alt="" />
+              ) : (
+                <video
+                  controls
+                  width="400px"
+                  height="400px"
+                  src={post.url}
+                ></video>
+              )}
+            </div>
+            <div className="post-bottom-div">
+              {post.comments.map(comment => (
+                <div>
+                  <span>{comment.user}</span>
+                  <h6>{comment.comment}</h6>
+                </div>
+              ))}
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  handleCommentSubmit(post.key, post.comments)
+                }}
+              >
+                <textarea
+                  onChange={(e) => setComment(e.target.value)}
+                  cols="30"
+                  rows="10"
+                ></textarea>
+                <button>submit</button>
+              </form>
+            </div>
+          </div>
+        ))}
     </div>
   );
 }

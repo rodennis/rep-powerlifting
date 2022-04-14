@@ -1,12 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import "./Upload.css";
 import realTime from "../../firebase/realTime";
+import { useNavigate } from "react-router-dom";
 
-function Upload({ setToggle, user, setMedia }) {
+function Upload({ setToggle, user }) {
 
   const [pickedPicture, setPickedPicture] = useState();
   const [userMedia, setUserMedia] = useState([])
   const [caption, setCaption] = useState('')
+
+  const navigate = useNavigate()
 
   const createPost = async (data) => {
     try{
@@ -24,7 +27,7 @@ function Upload({ setToggle, user, setMedia }) {
     formData.append("upload_preset", "bt4evw90");
 
     const data = await fetch(
-      "http://api.cloudinary.com/v1_1/rodennis/image/upload",
+      userMedia.type.slice(0, 5) === 'image' ? "http://api.cloudinary.com/v1_1/rodennis/image/upload" : "http://api.cloudinary.com/v1_1/rodennis/video/upload",
       {
         method: "POST",
         body: formData,
@@ -35,15 +38,18 @@ function Upload({ setToggle, user, setMedia }) {
         return result;
       });
 
+
+
       const newPost = {
         user: user?.displayName,
-        url: `https://res.cloudinary.com/rodennis/image/upload/v1649176656/${data?.public_id}.jpg`,
+        url: userMedia.type.slice(0, 5) === 'image' ? `https://res.cloudinary.com/rodennis/image/upload/v1649176656/${data?.public_id}.jpg` : `https://res.cloudinary.com/rodennis/video/upload/v1649176656/${data?.public_id}.mp4`,
         caption,
         comments: ['these will be comments']
       }
 
       await createPost(newPost)
       setToggle(prevToggle => !prevToggle)
+      navigate('/')
   }
 
   const handleFileChange = (file) => {
